@@ -70,7 +70,7 @@ kubectl config use-context kind-voto-lab
 
 ### Commit final (merge/squash)
 
-- Deve iniciar com `#REFS:NNNNN` (formato estrito e case-sensitive)
+- Deve iniciar com `#REFS:NNNNN:` (formato estrito e case-sensitive)
 - `NNNNN` deve ser igual ao numero da branch
 - Descricao obrigatoria apos o identificador, sem tipo no commit
 - Regra validada localmente e no GitHub Actions
@@ -78,21 +78,21 @@ kubectl config use-context kind-voto-lab
 Exemplo valido:
 
 ```bash
-#REFS:01234 integra fluxo de deploy automatizado
+#REFS:01234: integra fluxo de deploy automatizado
 ```
 
 ### Titulo do Pull Request
 
-- Deve seguir o mesmo padrao do commit final: `#REFS:NNNNN descricao`
+- Deve seguir o mesmo padrao do commit final: `#REFS:NNNNN: descricao`
 
 Exemplo valido:
 
 ```text
-#REFS:01234 integra fluxo de deploy automatizado
+#REFS:01234: integra fluxo de deploy automatizado
 ```
 
 ### Politica da branch `main`
 
-- Push direto na `main` deve ser bloqueado.
+- Push direto na `main` bloqueado.
 - Alteracoes entram apenas via Pull Request aprovado e validado.
 
