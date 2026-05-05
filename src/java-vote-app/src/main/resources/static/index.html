@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vote App</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 40px; }
+      button { margin-right: 12px; padding: 10px 16px; }
+      #status { margin-top: 16px; }
+    </style>
+  </head>
+  <body>
+    <h1>Vote App</h1>
+    <p>Selecione uma opção:</p>
+    <button onclick="sendVote('cats')">Gatos</button>
+    <button onclick="sendVote('dogs')">Cachorros</button>
+    <div id="status"></div>
+
+    <button onclick="goToResults()">Ver Resultados</button>
+    <script>
+      function goToResults() {
+        const portMap = {
+          '30080': '30081',
+          '18080': '13000'
+        };
+        const resultPort = portMap[window.location.port] || '30081';
+        window.location.href = `${window.location.protocol}//${window.location.hostname}:${resultPort}/`;
+      }
+
+      async function sendVote(option) {
+        const status = document.getElementById('status');
+        status.textContent = 'Sending vote...';
+        try {
+          const response = await fetch('/vote?option=' + encodeURIComponent(option), {
+            method: 'POST'
+          });
+          status.textContent = response.ok ? 'Vote sent!' : 'Vote failed';
+        } catch (err) {
+          status.textContent = 'Vote failed';
+        }
+      }
+    </script>
+  </body>
+</html>
+

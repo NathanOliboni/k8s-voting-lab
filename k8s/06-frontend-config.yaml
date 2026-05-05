@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: result-frontend
+data:
+  index.html: |
+    <!doctype html>
+    <html lang="en">
+      <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Voting Results</title>
+        <style>
+          body { font-family: Arial, sans-serif; margin: 40px; background: #f7f7f7; }
+          .card { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+          .item { margin: 6px 0; }
+        </style>
+      </head>
+      <body>
+        <div class="card">
+          <h1>Voting Results</h1>
+          <div id="results">Loading...</div>
+        </div>
+        <script>
+          async function loadResults() {
+            const container = document.getElementById('results');
+            try {
+              const response = await fetch('/results');
+              const data = await response.json();
+              if (!Array.isArray(data) || data.length === 0) {
+                container.textContent = 'No votes yet';
+                return;
+              }
+              container.innerHTML = data
+                .map(row => '<div class="item">' + row.vote + ': ' + row.count + '</div>')
+                .join('');
+            } catch (err) {
+              container.textContent = 'Failed to load results';
+            }
+          }
+
+          loadResults();
+          setInterval(loadResults, 2000);
+        </script>
+      </body>
+    </html>
+
