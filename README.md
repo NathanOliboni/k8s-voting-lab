@@ -95,4 +95,4 @@ Exemplo valido:
 
 - Push direto na `main` bloqueado.
 - Alteracoes entram apenas via Pull Request aprovado e validado.
-- `CODEOWNERS` configurado em `.github/CODEOWNERS` com owner unico: `@NathanOliboni`.
+
